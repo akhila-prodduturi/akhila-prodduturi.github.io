@@ -6,7 +6,7 @@ function renderChart1() {
 			bottom: 100,
 			left: 50
 		},
-		width = 500 - margin.left - margin.right,
+		width = 600 - margin.left - margin.right,
 		height = 550 - margin.top - margin.bottom,
 		tooltip = d3.select("#tooltip");
 
