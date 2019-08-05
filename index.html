@@ -88,9 +88,13 @@
         }
 
         function setTextVisibility(chart) {
-            let id = "text-chart-1";
+            let id = "text-chart-2";
             if (chart !== 1) {
-                id = "text-chart"
+                id = "text-chart-2"
+            } else if (chart !== 2) {
+                id = "text-chart-1"
+            } else {
+                id = "text-chart-3"
             }
             var ps = document.querySelectorAll(".content p, .chart-container");
             ps.forEach(function (par, index) {
@@ -103,8 +107,8 @@
 
     <div class="content">
         <p id="text-chart-1">
-                <b><em>Note: Hover over the circles for details.</em></b><br><br>
-            <i>Above is a scatter plot showing correlation between cars mileage on City roads and Highways. <br>
+            <b><em>Note: Hover over the circles for details.</em></b><br><br>
+            <i>Scatter plot showing correlation between cars mileage on City roads and Highways. <br>
                 As can be seen, it's a positive correlation, which means that as the mileage on city roads <br>
                 varies(increases) for different cars we see a general trend where their mileage on highways <br>
                 is varying in the same direction although the degree of how much they vary may differ. For <br>
@@ -113,10 +117,9 @@
                 Diesel run cars we observe higher mileage on highways. A trend we will more closely observe on <br>
                 our next slide.</i> <br> <br>
 
-            
         </p>
-        <p id="text-chart">
-                <b><em>Note: Hover over the circles for detailed information.</em></b><br><br>
+        <p id="text-chart-2">
+            <b>Note: hover over the circles for details</b><br><br>
             <i>Shown above is a bar plot with categories of fuel used in the cars plotted on x-axis and Average Mileage
                 on
                 Y-axis. <br>
@@ -133,9 +136,17 @@
                 city roads.<br>
                 Therefore, we see that the average mileage of electric cars on highways although greater by more than
                 300% compared <br>
-                to gasoline vehicles, is lesser by ~ 18 mpg compared to their mileage on city roads.</i> <br> <br>
+                to gasoline vehicles, is lesser by ~ 18 mpg compared to their mileage on city roads.</i>
+        </p>
 
-            
+        <p id="text-chart-3">
+            <b>Note: hover over the circles for details</b><br><br>
+            <i>Shown above is a bar plot with categories of EngineCylinders used in the cars plotted on x-axis and
+                Average Mileage
+                on
+                Y-axis. <br>
+                The general trend we observe is that the fewer the engine cylinders, the better the mileage is <br>
+                on both city and highway roads.</i> <br> <br>
         </p>
     </div>
 </body>
