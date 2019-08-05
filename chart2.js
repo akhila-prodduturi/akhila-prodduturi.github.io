@@ -2,28 +2,28 @@ function renderChart2() {
 	// Graph dimensions
 	//Dimensions
 	var margin = {
-			top: 50,
-			right: 50,
-			bottom: 100,
-			left: 50
-		},
-		width = 500 - 100,
+		top: 50,
+		right: 150,
+		bottom: 100,
+		left: 50
+	},
+		width = 600 - 200,
 		height = 550 - 150;
 	tooltip = d3.select("#tooltip");
 
 	var City = [{
-			fuel: "Electricity",
-			value: 119.2,
-			count: 10
-		}, {
-			fuel: "Diesel",
-			value: 24.5,
-			count: 6
-		}, {
-			fuel: "Gasoline",
-			value: 19.53,
-			count: 130
-		},
+		fuel: "Electricity",
+		value: 119.2,
+		count: 10
+	}, {
+		fuel: "Diesel",
+		value: 24.5,
+		count: 6
+	}, {
+		fuel: "Gasoline",
+		value: 19.53,
+		count: 130
+	},
 
 	];
 
@@ -39,20 +39,20 @@ function renderChart2() {
 		fuel: "Gasoline",
 		value: 26.66,
 		count: 130
-	}, ];
+	},];
 
 	var svg = d3.select("#slide2")
 		.append("svg")
-		.attr("width", 500)
+		.attr("width", 600)
 		.attr("height", 550)
 		.append("g")
 		.attr("transform",
-			"translate(" + 50 + "," + 50 + ")");
+			"translate(" + 150 + "," + 50 + ")");
 
 	// X axis
-	var x = d3.scaleBand().range([0, 400]).domain(City.map(function(d) {
-			return d.fuel;
-		}))
+	var x = d3.scaleBand().range([0, 400]).domain(City.map(function (d) {
+		return d.fuel;
+	}))
 		.padding(0.23);
 	svg.append("g")
 		.attr("transform", "translate(0," + height + ")")
@@ -90,7 +90,7 @@ function renderChart2() {
 		.enter()
 		.append('g')
 		.attr('class', 'legend')
-		.attr('transform', function(d, i) {
+		.attr('transform', function (d, i) {
 			return 'translate(0,' + i * 22 + ')';
 		});
 
@@ -105,15 +105,15 @@ function renderChart2() {
 		.attr('y', 15)
 		.attr('dy', '.35em')
 		.style('text-anchor', 'end')
-		.text(function(d) {
+		.text(function (d) {
 			return d;
 		});
 
 
-	legend.on('click', function(type) {
+	legend.on('click', function (type) {
 		d3.selectAll('rect')
 			.style('opacity', 0.1)
-			.filter(function(d) {
+			.filter(function (d) {
 				return d.fuel == type;
 			})
 			.style('opacity', 1);
@@ -144,19 +144,19 @@ function renderChart2() {
 		bars
 			.enter()
 			.append("rect")
-			.on("mouseover", function(d) {
+			.on("mouseover", function (d) {
 				tooltip.transition()
 					.duration(200)
 					.style("opacity", .9);
-				tooltip.html(function() {
-						var avgMPG = "<div><span>Avg MPG: </span>" + d.value + "</div>";
-						var noVehicles = "<div><span>No. of Vehicles: </span>" + d.count + "</div>";
-						return "<div>" + avgMPG + noVehicles + "</div>"
-					})
+				tooltip.html(function () {
+					var avgMPG = "<div><span>Avg MPG: </span>" + d.value + "</div>";
+					var noVehicles = "<div><span>No. of Vehicles: </span>" + d.count + "</div>";
+					return "<div>" + avgMPG + noVehicles + "</div>"
+				})
 					.style("left", (d3.event.pageX) + "px")
 					.style("top", (d3.event.pageY - 28) + "px");
 			})
-			.on("mouseout", function(d) {
+			.on("mouseout", function (d) {
 				tooltip.transition()
 					.duration(500)
 					.style("opacity", 0);
@@ -164,17 +164,17 @@ function renderChart2() {
 			.merge(bars)
 			.transition()
 			.duration(1800)
-			.attr("x", function(d) {
+			.attr("x", function (d) {
 				return x(d.fuel);
 			})
-			.attr("y", function(d) {
+			.attr("y", function (d) {
 				return y(d.value);
 			})
 			.attr("width", x.bandwidth())
-			.attr("height", function(d) {
+			.attr("height", function (d) {
 				return height - y(d.value);
 			})
-			.attr("fill", function(d) {
+			.attr("fill", function (d) {
 				return color(d.fuel);
 			})
 
@@ -187,13 +187,13 @@ function renderChart2() {
 			.attr("class", "label")
 			.transition()
 			.duration(1800)
-			.text(function(d) {
+			.text(function (d) {
 				return d.value
 			})
-			.attr("x", function(d) {
+			.attr("x", function (d) {
 				return x(d.fuel) + x.bandwidth() / 2;
 			})
-			.attr("y", function(d) {
+			.attr("y", function (d) {
 				return y(d.value) - 5;
 			})
 			.attr("text-anchor", "middle")

@@ -2,8 +2,8 @@ function renderChart1() {
 	// Graph dimensions
 	var margin = {
 			top: 50,
-			right: 50,
-			bottom: 50,
+			right: 150,
+			bottom: 100,
 			left: 50
 		},
 		width = 500 - margin.left - margin.right,
@@ -13,11 +13,11 @@ function renderChart1() {
 	// append the svg object 
 	var svg = d3.select("#slide1")
 		.append("svg")
-		.attr("width", 500)
+		.attr("width", 600)
 		.attr("height", 550)
 		.append("g")
 		.attr("transform",
-			"translate(" + 50 + "," + 50 + ")")
+			"translate(" + 150 + "," + 50 + ")")
 
 	//Read the data
 	d3.csv("https://flunky.github.io/cars2017.csv", function(data) {
