@@ -1,3 +1,8 @@
+<div>
+        <button onclick="update(City)">Avg City MPG</button>
+        <button onclick="update(Highway)">Avg Highway MPG</button>
+    </div>
+	
 function renderChart2() {
 	// Graph dimensions
 	//Dimensions
