@@ -1,9 +1,102 @@
+<!-- CS 498: Akhila Prodduturi Narrative Visualization Project -->
+
 <!DOCTYPE html>
 <html>
 
-<body>
-    <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages.</p>
-</body>
 
+<head>
+	<meta charset="utf-8">
+	<title>Sheet 1</title>
+</head>
+
+<body>
+	<script src='https://d3js.org/d3.v4.js'></script>
+	<script src='https://d3js.org/d3.v4.min.js'></script>
+	<script src='chart1.js'></script>
+	<script src='chart2.js'></script>
+	<script src='chart3.js'></script>
+	<div>
+		<button onclick="chartHandler(1)">Chart 1</button>
+		<button onclick="chartHandler(2)">Chart 2</button>
+		<button onclick="chartHandler(3)">Chart 3</button>
+	</div>
+	<div id="slide1"></div>
+	<div id="slide2"></div>
+	<div id="slide3"></div>
+	<style>
+		#tooltip {
+			opacity: 0;
+			position: absolute;
+			padding: 10px;
+			font: 12px sans-serif;
+			background: white;
+			border: 1px solid lightgray;
+			border-radius: 8px;
+			pointer-events: none;
+		}
+		.content p{
+			display: none;
+		}
+	</style>
+
+	<div id="tooltip"></div>
+
+	<script>		
+		function chartHandler(chart){
+			d3.select("svg").remove();
+			if(chart === 1){
+				renderChart1();
+			} else if (chart ===2 ){
+				renderChart2();
+			}else{
+				renderChart3();
+			}
+			setTextVisibility(chart);
+		}
+
+		function setTextVisibility(chart){
+			let id = "text-chart-1";
+			if(chart !== 1){
+				id = "text-chart"
+			}
+			var ps = document.querySelectorAll(".content p");
+			ps.forEach(function(par, index) {
+				par.style.display = 'none';
+			});
+			document.querySelector("#" + id).style.display = 'block';
+		}
+	</script>
+
+	<div class="content">
+		<p id="text-chart-1">
+			<i>Above is a scatter plot showing correlation between cars mileage on City roads and Highways. <br>
+			As can be seen, it's a positive correlation, which means that as the mileage on city roads <br>
+			varies(increases) for different cars we see a general trend where their mileage on highways <br>
+			is varying in the same direction although the degree of how much they vary may differ. For <br>
+			example, for electric cars the relationship is not stricly positively colinear. Elecctric cars tend<br>
+			to have higher mileage on City roads when compared to highways. Whereas, for Gasoline and <br>
+			Diesel run cars we observe higher mileage on highways. A trend we will more closely observe on <br>
+			our next slide.</i> <br> <br>
+			
+			<b><em>Note: Hover over the circles for details.</em></b>
+		</p>
+	    <p id="text-chart">
+		    <i>Shown above is a bar plot with categories of fuel used in the cars plotted on x-axis and Average Mileage on
+		        Y-axis. <br>
+		        The general trend we observe is that <b>electric</b> cars outperfrom Diesel and gasoline cars by as much as
+		        ~ 500%, <br>
+		        whereas these numbers are little lower at ~ 300% on highways. On transitioning from <b>Average City Mileage</b><br>
+		        to <b>Average Highway Mileage</b> we note that the average mileage is decreasing for electric vehicles whereas,<br>
+		        it is increasing for gasoline and diesel vehicles. This is because, electric vehicles tend to generate electricty<br>
+		        anytime a driver breaks therefore increasing the mileage, and too much breaking tends to occur more on city roads.<br>
+		        Therefore, we see that the average mileage of electric cars on highways although greater by more than 300% compared <br>
+		        to gasoline vehicles, is lesser by ~ 18 mpg compared to their mileage on city roads.</i> <br> <br>
+
+		    <b><em>Note: Hover over the circles for detailed information.</em></b>
+		</p>
+	</div>
+</body>
+<script type="text/javascript">
+			chartHandler(2);
+</script>
 </html>
