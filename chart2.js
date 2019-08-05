@@ -1,4 +1,5 @@
-function renderChart2() {
+function renderChart2(data) {
+	d3.select("svg").remove();
 	// Graph dimensions
 	//Dimensions
 	var margin = {
@@ -10,36 +11,6 @@ function renderChart2() {
 		width = 600 - 200,
 		height = 550 - 150;
 	tooltip = d3.select("#tooltip");
-
-	var City = [{
-		fuel: "Electricity",
-		value: 119.2,
-		count: 10
-	}, {
-		fuel: "Diesel",
-		value: 24.5,
-		count: 6
-	}, {
-		fuel: "Gasoline",
-		value: 19.53,
-		count: 130
-	},
-
-	];
-
-	var Highway = [{
-		fuel: "Electricity",
-		value: 101.5,
-		count: 10
-	}, {
-		fuel: "Diesel",
-		value: 32.5,
-		count: 6
-	}, {
-		fuel: "Gasoline",
-		value: 26.66,
-		count: 130
-	},];
 
 	var svg = d3.select("#slide2")
 		.append("svg")
@@ -137,9 +108,9 @@ function renderChart2() {
 		.text("Click to Filter");
 
 	// A function that create / update the plot for a given variable:
-	function update(City) {
+	function update(data_) {
 		var bars = svg.selectAll("rect")
-			.data(City)
+			.data(data_)
 
 		bars
 			.enter()
@@ -180,7 +151,7 @@ function renderChart2() {
 
 		svg.selectAll("text.label").remove();
 		var label = svg.selectAll("text.label")
-			.data(City)
+			.data(data_)
 
 		label.enter()
 			.append("text")
@@ -200,5 +171,5 @@ function renderChart2() {
 	}
 
 	// Initialize the plot with the first dataset
-	update(City)
+	update(data)
 }

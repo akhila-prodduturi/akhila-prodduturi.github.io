@@ -3,26 +3,15 @@
 <!DOCTYPE html>
 <html>
 
-
 <head>
     <meta charset="utf-8">
     <title>Narrative Visualization Project - Akhila Prodduturi</title>
-</head>
-
-<body>
     <script src='https://d3js.org/d3.v4.js'></script>
     <script src='https://d3js.org/d3.v4.min.js'></script>
+    <script src='data.js'></script>
     <script src='chart1.js'></script>
     <script src='chart2.js'></script>
     <script src='chart3.js'></script>
-    <div>
-        <button onclick="chartHandler(1)">Slide 1</button>
-        <button onclick="chartHandler(2)">Slide 2</button>
-        <button onclick="chartHandler(3)">Slide 3</button>
-    </div>
-    <div id="slide1"></div>
-    <div id="slide2"></div>
-    <div id="slide3"></div>
     <style>
         #tooltip {
             opacity: 0;
@@ -35,10 +24,53 @@
             pointer-events: none;
         }
 
-        .content p {
+        .content p,
+        .chart-2-container,
+        .chart-3-container {
             display: none;
         }
+
+        .charts-buttons {
+            margin-bottom: 20px;
+        }
+
+        .view-buttons {
+            width: 500px;
+            margin-top: 50px;
+            cursor: pointer;
+            text-align: right;
+        }
     </style>
+
+</head>
+
+<body>
+    <div class="charts-buttons">
+        <button onclick="chartHandler(1)">Slide 1</button>
+        <button onclick="chartHandler(2)">Slide 2</button>
+        <button onclick="chartHandler(3)">Slide 3</button>
+    </div>
+    <div class="chart-container" id="cont1">
+        <div id="slide1"></div>
+    </div>
+    <div class="chart-container" id="cont2">
+        <div class="view-buttons">
+            <input type="radio" name="view" id="avgcity" checked="" onclick="renderChart2(City)">
+            <label for="avgcity">Avg City MPG</label>
+            <input type="radio" name="view" id="avghighway" onclick="renderChart2(Highway)">
+            <label for="avghighway">Avg Highway MPG</label>
+        </div>
+        <div id="slide2"></div>
+    </div>
+    <div class="chart-container" id="cont3">
+        <div class="view-buttons">
+            <input type="radio" name="view2" id="avgcity2" checked="" onclick="renderChart3(City2)">
+            <label for="avgcity2">Avg City MPG</label>
+            <input type="radio" name="view2" id="avghighway2" onclick="renderChart3(Highway2)">
+            <label for="avghighway2">Avg Highway MPG</label>
+        </div>
+        <div id="slide3"></div>
+    </div>
 
     <div id="tooltip"></div>
 
@@ -48,9 +80,9 @@
             if (chart === 1) {
                 renderChart1();
             } else if (chart === 2) {
-                renderChart2();
+                renderChart2(City);
             } else {
-                renderChart3();
+                renderChart3(City2);
             }
             setTextVisibility(chart);
         }
@@ -60,18 +92,17 @@
             if (chart !== 1) {
                 id = "text-chart"
             }
-            var ps = document.querySelectorAll(".content p");
+            var ps = document.querySelectorAll(".content p, .chart-container");
             ps.forEach(function (par, index) {
                 par.style.display = 'none';
             });
             document.querySelector("#" + id).style.display = 'block';
+            document.querySelector("#cont" + chart).style.display = 'block';
         }
     </script>
 
     <div class="content">
         <p id="text-chart-1">
-            <b><em>Note: Hover over the circles for details.</em></b><br><br>
-
             <i>Above is a scatter plot showing correlation between cars mileage on City roads and Highways. <br>
                 As can be seen, it's a positive correlation, which means that as the mileage on city roads <br>
                 varies(increases) for different cars we see a general trend where their mileage on highways <br>
@@ -81,13 +112,15 @@
                 Diesel run cars we observe higher mileage on highways. A trend we will more closely observe on <br>
                 our next slide.</i> <br> <br>
 
-
+            <b><em>Note: Hover over the circles for details.</em></b>
         </p>
         <p id="text-chart">
-            <b><em>Note: Hover over the circles for detailed information.</em></b><br><br>
             <i>Shown above is a bar plot with categories of fuel used in the cars plotted on x-axis and Average Mileage
-                on Y-axis. <br>
-                The general trend we observe is that <b>electric</b> cars outperfrom Diesel and gasoline cars by as much as ~ 500%, <br>
+                on
+                Y-axis. <br>
+                The general trend we observe is that <b>electric</b> cars outperfrom Diesel and gasoline cars by as much
+                as
+                ~ 500%, <br>
                 whereas these numbers are little lower at ~ 300% on highways. On transitioning from <b>Average City
                     Mileage</b><br>
                 to <b>Average Highway Mileage</b> we note that the average mileage is decreasing for electric vehicles
@@ -99,11 +132,13 @@
                 Therefore, we see that the average mileage of electric cars on highways although greater by more than
                 300% compared <br>
                 to gasoline vehicles, is lesser by ~ 18 mpg compared to their mileage on city roads.</i> <br> <br>
+
+            <b><em>Note: Hover over the circles for detailed information.</em></b>
         </p>
     </div>
 </body>
 <script type="text/javascript">
-    chartHandler(2);
+    chartHandler(1);
 </script>
 
 </html>

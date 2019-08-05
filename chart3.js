@@ -1,11 +1,12 @@
-function renderChart3() {
+function renderChart3(data) {
+    d3.select("svg").remove();
     // Graph dimensions
     var margin = {
-        top: 50,
-        right: 150,
-        bottom: 100,
-        left: 50
-    },
+            top: 50,
+            right: 150,
+            bottom: 100,
+            left: 50
+        },
         width = 600 - 200,
         height = 550 - 150,
         tooltip = d3.select("#tooltip");
@@ -135,9 +136,9 @@ function renderChart3() {
             "translate(" + 150 + "," + 50 + ")");
 
     // X axis
-    var x = d3.scaleBand().range([0, 400]).domain(City.map(function (d) {
-        return d.Cylinders;
-    }))
+    var x = d3.scaleBand().range([0, 400]).domain(City.map(function(d) {
+            return d.Cylinders;
+        }))
         .padding(0.23);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -178,7 +179,7 @@ function renderChart3() {
         .enter()
         .append('g')
         .attr('class', 'legend')
-        .attr('transform', function (d, i) {
+        .attr('transform', function(d, i) {
             return 'translate(0,' + i * 22 + ')';
         });
 
@@ -193,15 +194,15 @@ function renderChart3() {
         .attr('y', 15)
         .attr('dy', '.35em')
         .style('text-anchor', 'end')
-        .text(function (d) {
+        .text(function(d) {
             return d;
         });
 
 
-    legend.on('click', function (type) {
+    legend.on('click', function(type) {
         d3.selectAll('rect')
             .style('opacity', 0.1)
-            .filter(function (d) {
+            .filter(function(d) {
                 return d.Cylinders == type;
             })
             .style('opacity', 1);
@@ -225,28 +226,28 @@ function renderChart3() {
         .text("Click to Filter");
 
     // A function that create / update the plot for a given variable:
-    function update(City) {
+    function update(data_) {
         var bars = svg.selectAll("rect")
-            .data(City)
+            .data(data_)
         bars
             .enter()
             .append("rect")
-            .on("mouseover", function (d) {
+            .on("mouseover", function(d) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                tooltip.html(function () {
-                    var avgMPG = "<div><span>Avg MPG:</span> " + d.value + "</div>";
-                    var noVehicles = "<div><span>No. of Vehicles: </span>" + d.count + "</div>";
-                    var gasVehicles = "<div><span>Gasoline Vehicles: </span>" + d.Gasoline + "</div>";
-                    var dieselVehicles = "<div><span>Diesel Vehicles: </span>" + d.Diesel + "</div>";
-                    var electricVehicles = "<div><span>Electric Vehicles: </span>" + d.Electricity + "</div>";
-                    return "<div>" + avgMPG + noVehicles + gasVehicles + dieselVehicles + electricVehicles + "</div>"
-                })
+                tooltip.html(function() {
+                        var avgMPG = "<div><span>Avg MPG:</span> " + d.value + "</div>";
+                        var noVehicles = "<div><span>No. of Vehicles: </span>" + d.count + "</div>";
+                        var gasVehicles = "<div><span>Gasoline Vehicles: </span>" + d.Gasoline + "</div>";
+                        var dieselVehicles = "<div><span>Diesel Vehicles: </span>" + d.Diesel + "</div>";
+                        var electricVehicles = "<div><span>Electric Vehicles: </span>" + d.Electricity + "</div>";
+                        return "<div>" + avgMPG + noVehicles + gasVehicles + dieselVehicles + electricVehicles + "</div>"
+                    })
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 56) + "px");
             })
-            .on("mouseout", function (d) {
+            .on("mouseout", function(d) {
                 tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
@@ -254,41 +255,41 @@ function renderChart3() {
             .merge(bars)
             .transition()
             .duration(1800)
-            .attr("x", function (d) {
+            .attr("x", function(d) {
                 return x(d.Cylinders);
             })
-            .attr("y", function (d) {
+            .attr("y", function(d) {
                 return y(d.value);
             })
             .attr("width", x.bandwidth())
-            .attr("height", function (d) {
+            .attr("height", function(d) {
                 return height - y(d.value);
             })
-            .attr("fill", function (d) {
+            .attr("fill", function(d) {
                 return color(d.Cylinders);
             })
 
         svg.selectAll("text.label").remove();
         var label = svg.selectAll("text.label")
-            .data(City)
+            .data(data_)
 
         label.enter()
             .append("text")
             .attr("class", "label")
             .transition()
             .duration(1800)
-            .text(function (d) {
+            .text(function(d) {
                 return d.value
             })
-            .attr("x", function (d) {
+            .attr("x", function(d) {
                 return x(d.Cylinders) + x.bandwidth() / 2;
             })
-            .attr("y", function (d) {
+            .attr("y", function(d) {
                 return y(d.value) - 5;
             })
             .attr("text-anchor", "middle")
     }
 
     // Initialize the plot with the first dataset
-    update(City)
+    update(data)
 }
